@@ -36,4 +36,12 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         authenticationDb.save(newUser);
         return ResponseEntity.status(HttpStatus.CREATED).body("User registered successfully");
     }
+    @Override
+    public ResponseEntity<?> getUserByUsername(String username) {
+        var user = authenticationDb.findByUsername(username);
+        if (user.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+        }
+        return ResponseEntity.ok(user.get());
+    }
 }
