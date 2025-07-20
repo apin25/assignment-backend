@@ -1,0 +1,98 @@
+package id.ac.ui.cs.apap.sceleNG.service;
+
+import id.ac.ui.cs.apap.sceleNG.dto.response.AssignmentDTO;
+import id.ac.ui.cs.apap.sceleNG.dto.request.CreateAssignmentDTO;
+import id.ac.ui.cs.apap.sceleNG.dto.request.UpdateAssignmentDTO;
+import id.ac.ui.cs.apap.sceleNG.dto.AssignmentMapper;
+import id.ac.ui.cs.apap.sceleNG.model.CourseAssignment;
+import id.ac.ui.cs.apap.sceleNG.repository.AssignmentDb;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.time.Instant;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+import java.util.stream.Collectors;
+
+@Service
+public class CourseAssignmentServiceImpl implements CourseAssignmentService {
+
+    @Autowired
+    private AssignmentDb assignmentDb;
+
+    @Autowired
+    private AssignmentMapper assignmentMapper;
+
+    @Override
+    public List<AssignmentDTO> getAllAssignments() {
+        return assignmentDb.getAllAssignments().stream()
+                .map(assignmentMapper::assignmentToReadAssignmentResponseDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<AssignmentDTO> getAssignmentByCourse(String course) {
+        return assignmentDb.findByCourse(course).stream()
+                .map(assignmentMapper::assignmentToReadAssignmentResponseDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<AssignmentDTO> getAssignmentByOwner(String owner) {
+        return assignmentDb.findByOwner(owner).stream()
+                .map(assignmentMapper::assignmentToReadAssignmentResponseDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<AssignmentDTO> getDueAssignments() {
+        Instant now = Instant.now();
+        return assignmentDb.findDueAssignments(now).stream()
+                .map(assignmentMapper::assignmentToReadAssignmentResponseDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<AssignmentDTO> getOngoingAssignments() {
+        Instant now = Instant.now();
+        return assignmentDb.findOngoingAssignments(now).stream()
+                .map(assignmentMapper::assignmentToReadAssignmentResponseDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<AssignmentDTO> getAssignmentsContaining(String q) {
+        return assignmentDb.findAssignmentsContaining(q).stream()
+                .map(assignmentMapper::assignmentToReadAssignmentResponseDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public AssignmentDTO postAssignment(CreateAssignmentDTO in) {
+        CourseAssignment assignment = assignmentMapper.createAssignmentRequestDTOToAssignment(in);
+        assignment.setId(UUID.randomUUID());
+        CourseAssignment saved = assignmentDb.save(assignment);
+        return assignmentMapper.assignmentToReadAssignmentResponseDTO(saved);
+    }
+
+    @Override
+    public AssignmentDTO putModifyAssignment(UUID id, UpdateAssignmentDTO in) {
+        CourseAssignment existing = assignmentDb.findById(id)
+                .orElseThrow(() -> new RuntimeException("Assignment not found"));
+
+        assignmentMapper.updateAssignmentFromDTO(in, existing);
+
+        CourseAssignment saved = assignmentDb.save(existing);
+        return assignmentMapper.assignmentToReadAssignmentResponseDTO(saved);
+    }
+
+    @Override
+    public void deleteAssignment(UUID id) {
+        CourseAssignment assignment = assignmentDb.findById(id)
+                .orElseThrow(() -> new RuntimeException("Assignment not found"));
+
+        assignment.setDeleted(true);
+        assignmentDb.save(assignment);
+    }
+}
