@@ -7,7 +7,7 @@ services:
     restart: 'no'
     environment:
       - POSTGRES_USER=postgres
-      - POSTGRES_DB=postgres
+      - POSTGRES_DB=assignment
       - POSTGRES_PASSWORD=secret99
     volumes: 
       - db:/var/lib/postgresql/data

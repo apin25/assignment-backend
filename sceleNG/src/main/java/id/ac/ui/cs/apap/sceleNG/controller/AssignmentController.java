@@ -38,9 +38,18 @@ public class AssignmentController {
         return courseAssignmentService.putModifyAssignment(id, request);
     }
 
-    @DeleteMapping("/assignments/{id}")
+    @PutMapping("/assignments/{id}/delete")
     public ResponseEntity<String> softDeleteAssignment(@PathVariable UUID id) {
         courseAssignmentService.deleteAssignment(id);
         return ResponseEntity.ok("Assignment soft-deleted");
     }
+    @GetMapping("/assignments/{id}")
+    public ResponseEntity<AssignmentDTO> getAssignmentDetail(@PathVariable UUID id) {
+        AssignmentDTO assignment = courseAssignmentService.getAssignmentById(id);
+        if (assignment == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(assignment);
+    }
+
 }

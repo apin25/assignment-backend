@@ -44,4 +44,5 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         }
         return ResponseEntity.ok(user.get());
     }
+    
 }

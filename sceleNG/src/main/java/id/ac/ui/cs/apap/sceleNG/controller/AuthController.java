@@ -20,7 +20,7 @@ import id.ac.ui.cs.apap.sceleNG.service.AuthenticationService;
 import id.ac.ui.cs.apap.sceleNG.util.JwtUtil;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/api/auth")
 public class AuthController {
 
     private final AuthenticationManager authenticationManager;

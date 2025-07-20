@@ -23,6 +23,8 @@ public interface CourseAssignmentService {
 
     AssignmentDTO postAssignment(CreateAssignmentDTO in);
 
+    AssignmentDTO getAssignmentById(UUID id);
+
     AssignmentDTO putModifyAssignment(UUID id, UpdateAssignmentDTO in);
 
     void deleteAssignment(UUID id);

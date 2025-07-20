@@ -1,19 +1,19 @@
 package id.ac.ui.cs.apap.sceleNG.service;
 
-import id.ac.ui.cs.apap.sceleNG.dto.response.AssignmentDTO;
-import id.ac.ui.cs.apap.sceleNG.dto.request.CreateAssignmentDTO;
-import id.ac.ui.cs.apap.sceleNG.dto.request.UpdateAssignmentDTO;
-import id.ac.ui.cs.apap.sceleNG.dto.AssignmentMapper;
-import id.ac.ui.cs.apap.sceleNG.model.CourseAssignment;
-import id.ac.ui.cs.apap.sceleNG.repository.AssignmentDb;
+import java.time.Instant;
+import java.util.List;
+import java.util.UUID;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.Instant;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
-import java.util.stream.Collectors;
+import id.ac.ui.cs.apap.sceleNG.dto.AssignmentMapper;
+import id.ac.ui.cs.apap.sceleNG.dto.request.CreateAssignmentDTO;
+import id.ac.ui.cs.apap.sceleNG.dto.request.UpdateAssignmentDTO;
+import id.ac.ui.cs.apap.sceleNG.dto.response.AssignmentDTO;
+import id.ac.ui.cs.apap.sceleNG.model.CourseAssignment;
+import id.ac.ui.cs.apap.sceleNG.repository.AssignmentDb;
 
 @Service
 public class CourseAssignmentServiceImpl implements CourseAssignmentService {
@@ -71,7 +71,6 @@ public class CourseAssignmentServiceImpl implements CourseAssignmentService {
     @Override
     public AssignmentDTO postAssignment(CreateAssignmentDTO in) {
         CourseAssignment assignment = assignmentMapper.createAssignmentRequestDTOToAssignment(in);
-        assignment.setId(UUID.randomUUID());
         CourseAssignment saved = assignmentDb.save(assignment);
         return assignmentMapper.assignmentToReadAssignmentResponseDTO(saved);
     }
@@ -95,4 +94,11 @@ public class CourseAssignmentServiceImpl implements CourseAssignmentService {
         assignment.setDeleted(true);
         assignmentDb.save(assignment);
     }
+    @Override
+    public AssignmentDTO getAssignmentById(UUID id) {
+        CourseAssignment assignment = assignmentDb.findById(id)
+            .orElseThrow(() -> new RuntimeException("Assignment not found"));
+        return assignmentMapper.assignmentToReadAssignmentResponseDTO(assignment);
+    }
 }
+
