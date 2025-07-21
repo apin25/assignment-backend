@@ -23,11 +23,17 @@ public class AssignmentController {
     private CourseAssignmentService courseAssignmentService;
 
     @GetMapping("/assignments")
-    public ResponseEntity<CommonResponse<List<AssignmentDTO>>> retrieveAllAssignments() {
-        List<AssignmentDTO> assignments = courseAssignmentService.getAllAssignments();
+    public ResponseEntity<CommonResponse<List<AssignmentDTO>>> retrieveAllAssignments(
+            @RequestParam(required = false) String course,
+            @RequestParam(required = false) String title,
+            @RequestParam(required = false) String owner,
+            @RequestParam(required = false) String dueStatus // "onTime" / "overDue" / null
+    ) {
+        List<AssignmentDTO> assignments = courseAssignmentService.getFilteredAssignments(course, title, owner, dueStatus);
         CommonResponse<List<AssignmentDTO>> response = new CommonResponse<>(true, assignments, null);
         return ResponseEntity.ok(response);
     }
+
 
 
     @PostMapping("/assignments")

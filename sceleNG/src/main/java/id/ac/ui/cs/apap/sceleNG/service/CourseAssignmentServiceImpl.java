@@ -100,5 +100,26 @@ public class CourseAssignmentServiceImpl implements CourseAssignmentService {
             .orElseThrow(() -> new RuntimeException("Assignment not found"));
         return assignmentMapper.assignmentToReadAssignmentResponseDTO(assignment);
     }
+    @Override
+    public List<AssignmentDTO> getFilteredAssignments(String course, String title, String owner, String dueStatus) {
+        List<CourseAssignment> allAssignments = assignmentDb.getAllAssignments();
+        Instant now = Instant.now();
+
+        return allAssignments.stream()
+                .filter(a -> course == null || a.getCourse().equalsIgnoreCase(course))
+                .filter(a -> title == null || a.getTitle().toLowerCase().contains(title.toLowerCase()))
+                .filter(a -> owner == null || a.getOwner().equalsIgnoreCase(owner))
+                .filter(a -> {
+                    if (dueStatus == null) return true;
+                    if (dueStatus.equalsIgnoreCase("onTime")) {
+                        return a.getDueDate().isAfter(now) || a.getDueDate().equals(now);
+                    } else if (dueStatus.equalsIgnoreCase("overDue")) {
+                        return a.getDueDate().isBefore(now);
+                    }
+                    return true;
+                })
+                .map(assignmentMapper::assignmentToReadAssignmentResponseDTO)
+                .toList();
+    }
 }
 
