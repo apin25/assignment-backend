@@ -33,9 +33,9 @@ public class AssignmentController {
             @RequestParam(required = false) String course,
             @RequestParam(required = false) String title,
             @RequestParam(required = false) String owner,
-            @RequestParam(required = false) String dueStatus 
+            @RequestParam(required = false) String status 
     ) {
-        List<AssignmentDTO> assignments = courseAssignmentService.getFilteredAssignments(course, title, owner, dueStatus);
+        List<AssignmentDTO> assignments = courseAssignmentService.getFilteredAssignments(course, title, owner, status);
         CommonResponse<List<AssignmentDTO>> response = new CommonResponse<>(true, assignments, null);
         return ResponseEntity.ok(response);
     }
