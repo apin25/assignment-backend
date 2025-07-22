@@ -1,19 +1,25 @@
 package id.ac.ui.cs.apap.sceleNG.controller;
 
-import id.ac.ui.cs.apap.sceleNG.dto.AssignmentMapper;
-import id.ac.ui.cs.apap.sceleNG.dto.request.CreateAssignmentDTO;
-import id.ac.ui.cs.apap.sceleNG.dto.request.UpdateAssignmentDTO;
-import id.ac.ui.cs.apap.sceleNG.dto.response.AssignmentDTO;
-import id.ac.ui.cs.apap.sceleNG.model.CourseAssignment;
-import id.ac.ui.cs.apap.sceleNG.response.CommonResponse;
-import id.ac.ui.cs.apap.sceleNG.service.CourseAssignmentService;
+import java.util.List;
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-import java.util.UUID;
+import id.ac.ui.cs.apap.sceleNG.dto.request.CreateAssignmentDTO;
+import id.ac.ui.cs.apap.sceleNG.dto.request.UpdateAssignmentDTO;
+import id.ac.ui.cs.apap.sceleNG.dto.response.AssignmentDTO;
+import id.ac.ui.cs.apap.sceleNG.response.CommonResponse;
+import id.ac.ui.cs.apap.sceleNG.service.CourseAssignmentService;
 
 @RestController
 @RequestMapping("/api")
@@ -27,7 +33,7 @@ public class AssignmentController {
             @RequestParam(required = false) String course,
             @RequestParam(required = false) String title,
             @RequestParam(required = false) String owner,
-            @RequestParam(required = false) String dueStatus // "onTime" / "overDue" / null
+            @RequestParam(required = false) String dueStatus 
     ) {
         List<AssignmentDTO> assignments = courseAssignmentService.getFilteredAssignments(course, title, owner, dueStatus);
         CommonResponse<List<AssignmentDTO>> response = new CommonResponse<>(true, assignments, null);
