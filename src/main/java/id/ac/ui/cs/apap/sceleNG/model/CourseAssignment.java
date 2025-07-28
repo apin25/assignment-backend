@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.time.Instant;
 import java.util.UUID;
 
@@ -15,7 +16,7 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CourseAssignment {
+public class CourseAssignment implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

@@ -1,4 +1,4 @@
-package id.ac.ui.cs.apap.sceleNG.response;
+package id.ac.ui.cs.apap.sceleNG.dto.response;
 
 public class CommonResponse<T> {
     private boolean success;

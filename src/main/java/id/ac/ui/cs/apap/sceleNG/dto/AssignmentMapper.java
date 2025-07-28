@@ -3,7 +3,6 @@ import id.ac.ui.cs.apap.sceleNG.dto.request.CreateAssignmentDTO;
 import id.ac.ui.cs.apap.sceleNG.dto.request.UpdateAssignmentDTO;
 import id.ac.ui.cs.apap.sceleNG.dto.response.AssignmentDTO;
 import id.ac.ui.cs.apap.sceleNG.model.CourseAssignment;
-import org.mapstruct.AfterMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 
@@ -14,5 +13,4 @@ public interface AssignmentMapper {
     UpdateAssignmentDTO assignmentToUpdateAssignmentRequestDTO(CourseAssignment courseAssignment);
     AssignmentDTO assignmentToReadAssignmentResponseDTO(CourseAssignment courseAssignment);
     void updateAssignmentFromDTO(UpdateAssignmentDTO dto, @MappingTarget CourseAssignment courseAssignment);
-
 }

@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import id.ac.ui.cs.apap.sceleNG.dto.request.CreateAssignmentDTO;
 import id.ac.ui.cs.apap.sceleNG.dto.request.UpdateAssignmentDTO;
 import id.ac.ui.cs.apap.sceleNG.dto.response.AssignmentDTO;
-import id.ac.ui.cs.apap.sceleNG.response.CommonResponse;
+import id.ac.ui.cs.apap.sceleNG.dto.response.CommonResponse;
 import id.ac.ui.cs.apap.sceleNG.service.CourseAssignmentService;
 
 @RestController

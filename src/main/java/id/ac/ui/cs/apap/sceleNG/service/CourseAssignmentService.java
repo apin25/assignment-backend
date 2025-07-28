@@ -3,11 +3,9 @@ package id.ac.ui.cs.apap.sceleNG.service;
 import id.ac.ui.cs.apap.sceleNG.dto.response.AssignmentDTO;
 import id.ac.ui.cs.apap.sceleNG.dto.request.CreateAssignmentDTO;
 import id.ac.ui.cs.apap.sceleNG.dto.request.UpdateAssignmentDTO;
-import id.ac.ui.cs.apap.sceleNG.model.CourseAssignment;
 
 import java.util.List;
 import java.util.UUID;
-
 public interface CourseAssignmentService {
 
     List<AssignmentDTO> getAllAssignments();
