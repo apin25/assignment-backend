@@ -35,13 +35,13 @@ public class Wiki implements Serializable {
     @Column(name = "content", nullable = false, length = 255)
     private String content;
 
-    @JoinColumn(name = "resourceId", nullable = true)
-    private String resourceId;
+    @Column(name = "resource", nullable = true)
+    private UUID resource;
 
-    @JoinColumn(name = "course_id", nullable = true)
-    private String courseId;
+    @Column(name = "course", nullable = true)
+    private UUID course;
 
-    @JoinColumn(name = "author", nullable = false)
+    @Column(name = "author", nullable = false)
     private UUID author;
 
     @Column(name = "is_deleted", nullable = false)

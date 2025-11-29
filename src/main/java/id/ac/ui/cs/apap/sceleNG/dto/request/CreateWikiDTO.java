@@ -1,9 +1,10 @@
 package id.ac.ui.cs.apap.sceleNG.dto.request;
 
+import java.util.UUID;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import java.util.UUID;
 
 @Data
 @NoArgsConstructor
@@ -11,7 +12,7 @@ import java.util.UUID;
 public class CreateWikiDTO {
     private String title;
     private String content;
-    private String resourceId;
-    private String courseId;
+    private UUID resource;
+    private UUID course;
     private UUID author;
 }

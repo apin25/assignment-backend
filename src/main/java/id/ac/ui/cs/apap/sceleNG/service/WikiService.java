@@ -2,20 +2,18 @@ package id.ac.ui.cs.apap.sceleNG.service;
 
 import java.util.List;
 import java.util.UUID;
-
-import id.ac.ui.cs.apap.sceleNG.dto.request.CreateWikiDTO;
-import id.ac.ui.cs.apap.sceleNG.dto.request.UpdateWikiDTO;
-import id.ac.ui.cs.apap.sceleNG.dto.response.WikiDTO;
-
+import id.ac.ui.cs.apap.sceleNG.model.Wiki;
 
 public interface WikiService {
-    List<WikiDTO> getAllWikis();
+    List<Wiki> getAllWikis();
     
-    WikiDTO postWiki(CreateWikiDTO in);
+    void postWiki(Wiki wiki);
 
-    WikiDTO getWikiById(UUID id);
+    Wiki getWikiById(UUID id);
 
-    WikiDTO putModifyWiki(UUID id, UpdateWikiDTO in);
+    Wiki putModifyWiki(Wiki wiki);
 
     void deleteWiki(UUID id);
+     
+    List<Wiki> getFilteredWikis(UUID course, String title, UUID author);
 }

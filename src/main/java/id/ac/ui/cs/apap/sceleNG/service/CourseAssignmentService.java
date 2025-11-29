@@ -1,32 +1,24 @@
 package id.ac.ui.cs.apap.sceleNG.service;
 
-import id.ac.ui.cs.apap.sceleNG.dto.response.AssignmentDTO;
-import id.ac.ui.cs.apap.sceleNG.dto.request.CreateAssignmentDTO;
-import id.ac.ui.cs.apap.sceleNG.dto.request.UpdateAssignmentDTO;
-
 import java.util.List;
 import java.util.UUID;
+
+import id.ac.ui.cs.apap.sceleNG.dto.request.CreateAssignmentDTO;
+import id.ac.ui.cs.apap.sceleNG.dto.request.UpdateAssignmentDTO;
+import id.ac.ui.cs.apap.sceleNG.dto.response.AssignmentDTO;
+import id.ac.ui.cs.apap.sceleNG.model.CourseAssignment;
+
 public interface CourseAssignmentService {
 
-    List<AssignmentDTO> getAllAssignments();
+    List<CourseAssignment> getAllAssignments();
 
-    List<AssignmentDTO> getAssignmentByCourse(String course);
+    void postAssignment(CourseAssignment courseAssignment);
 
-    List<AssignmentDTO> getAssignmentByOwner(String owner);
+    CourseAssignment getAssignmentById(UUID id);
 
-    List<AssignmentDTO> getDueAssignments();
-
-    List<AssignmentDTO> getOngoingAssignments();
-
-    List<AssignmentDTO> getAssignmentsContaining(String q);
-
-    AssignmentDTO postAssignment(CreateAssignmentDTO in);
-
-    AssignmentDTO getAssignmentById(UUID id);
-
-    AssignmentDTO putModifyAssignment(UUID id, UpdateAssignmentDTO in);
+    CourseAssignment putModifyAssignment(CourseAssignment courseAssignment);
 
     void deleteAssignment(UUID id);
 
-    List<AssignmentDTO> getFilteredAssignments(String course, String title, String owner, String dueStatus);
+    List<CourseAssignment> getFilteredAssignments(UUID course, String title, String owner, String dueStatus);
 }

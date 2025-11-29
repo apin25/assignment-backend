@@ -1,23 +1,20 @@
 package id.ac.ui.cs.apap.sceleNG.dto.response;
-
-import java.time.Instant;
-import java.util.UUID;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import java.time.Instant;
+import java.util.List;
+import java.util.UUID;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class WikiDTO {
+public class SubmissionDTO {
     private UUID id;
-    private String title;
-    private String content;
-    private ResourceDTO resource;
-    private CourseDTO course;
-    private UserDTO author;
+    private AssignmentDTO assignment;
+    private List<UserDTO> users;
+    private String answerText;
+    private ResourceDTO answerFile;
     private Instant createdAt;
-    private Instant modifiedAt;
     private Instant deletedAt;
 }

@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import java.time.Instant;
 import java.util.UUID;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -13,9 +14,12 @@ import java.util.UUID;
 public class AssignmentDTO {
     private UUID id;
     private String title;
-    private String course;
+    private CourseDTO course;
     private String owner;
+    private ResourceDTO resource;
+    private String text;
     private Instant createdAt;
     private Instant modifiedAt;
     private Instant dueDate;
+    private boolean isDeleted;
 }
